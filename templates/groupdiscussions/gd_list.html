@@ -23,6 +23,15 @@
             </div>
         </div>
     </div>
+    {% empty %}
+    <div class="w-full px-4 mb-8">
+        <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-5">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-rose-500 dark:text-white">All Slots are currently Booked.</h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kindly <a href="mailto:support@swabhyaas.com" class="text-indigo-500">mail support@swabhyaas.com</a> or <a href="https://wa.me/918976585319?text=Need%20a%20Group%20Discussion" target="_blank" class="text-indigo-500">WhatsApp</a>  with your Exam Name, Date, Time when you need GD. We will definitely try to open up a GD slot and share with you.</p>
+            </div>
+        </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

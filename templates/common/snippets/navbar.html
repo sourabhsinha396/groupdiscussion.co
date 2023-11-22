@@ -122,6 +122,9 @@
                     {% endif %}
                     <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                         <li>
+                            <a href="{% url 'blogs:blog_list' %}" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">GD Topics</a>
+                        </li>
+                        <li>
                             <a href="{% url 'groupdiscussions:list_group_discussions' %}" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Schedule GD</a>
                         </li>
                         <li>

@@ -4,7 +4,7 @@ from colorama import Fore, Style
 DEBUG = False
 print(Fore.CYAN + "DEBUG is " + Fore.GREEN + str(DEBUG) + Style.RESET_ALL)
 
-ALLOWED_HOSTS = ['swabhyaas.com','www.swabhyaas.com',]
+ALLOWED_HOSTS = ['swabhyaas.com','www.swabhyaas.com','127.0.0.1']
 
 INSTALLED_APPS += ["anymail","storages",]
 
