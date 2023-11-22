@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: "redis:alpine"
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - /home/mentor/infra/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /home/mentor/infra/nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - /home/mentor/infra/certbot/conf:/etc/nginx/ssl/:ro
+      - /home/mentor/infra/certbot/www:/var/www/certbot/:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+
+  certbot:
+    image: certbot/certbot
+#    command: certonly --webroot --webroot-path=/var/www/certbot --force-renewal --email sourabhsinha396@gmail.com --agree-tos --no-eff-email -d swabhyaas.com
+    command: renew
+    volumes:
+      - /home/mentor/infra/certbot/conf:/etc/letsencrypt/:rw
+      - /home/mentor/infra/certbot/www:/var/www/certbot/:rw
+
+
+volumes:
+  postgres_data:
