@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block body %}
+<div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+    <div class="max-w-xl sm:mx-auto lg:max-w-2xl">
+      <div class="flex flex-col mb-16 sm:text-center">
+        <div class="max-w-xl md:mx-auto sm:text-center lg:max-w-2xl">
+          <h2 class="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+            <span class="relative inline-block">
+              <span class="relative text-rose-500">About</span>
+            </span>
+            Swabhyaas
+          </h2>
+          <p class="text-base text-gray-700 md:text-lg">We are a dozen of enthusiasts who are on a mission to help students succeed in Careers.</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="border rounded shadow-sm">
+          <button type="button" aria-label="Open item" title="Open item" class="flex items-center justify-between w-full p-4 focus:outline-none">
+            <p class="text-lg font-medium text-rose-500">Why swabhyaas.com?</p>
+          </button>
+
+          <div class="p-4 pt-0"><p class="text-gray-700">We emerged out of need. Each of us had a hard time preparing for aptitude, coding and what not. However, In placements and jobs the very first bar is GD Round and everyone take it for granted before the first rejection. It's the failure in GD that teaches us that communication skills and personality are a neccessity in the real world. We are here so that you don't realize the same by doing the same mistake.</p></div>
+
+        </div>
+
+
+        <div class="border rounded shadow-sm">
+          <button type="button" aria-label="Open item" title="Open item" class="flex items-center justify-between w-full p-4 focus:outline-none">
+            <p class="text-lg font-medium text-rose-500">How can you connect with us?</p>
+          </button>
+              <div class="p-4 pt-0"><p class="text-gray-700">You can connect with us on our email 
+              <a href="mailto:support@swabhyaas.com" class="text-blue-600 transition-colors duration-300 hover:text-rose-500 pt-2">support@swabhyaas.com</a>
+              or you can follow our official <a href="https://www.linkedin.com/company/groupdiscussion-co/" class="text-blue-600" target="__blank">LinkedIn page</a>.
+            </p></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock body %}

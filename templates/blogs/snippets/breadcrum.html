@@ -1,0 +1,13 @@
+<nav class="block text-sm text-left text-gray-600 bg-gray-500 bg-opacity-10 h-12 flex items-center p-4 rounded-md"
+role="alert"
+>
+  <ol class="list-reset flex text-grey-dark px-4 py-16 sm:max-w-xl md:max-w-full lg:max-w-screen-l md:px-24 lg:px-36 lg:py-20">
+  <li><a href="{% url 'blogs:blog_list' %}" class="font-bold">Home</a></li>
+  {% for node in ancestors %}
+  	<li><a href="{{node.get_absolute_url}}" class="font-bold">{{node}}</a></li>
+  	<li><span class="mx-2">/</span></li>
+  {% endfor %}
+<li><span class="mx-2">/</span></li>
+<li>{{object}}</li>
+</ol>
+</nav>

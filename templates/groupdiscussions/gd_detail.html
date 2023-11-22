@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+<title>{{group_discussion.title}}</title>
+{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{group_discussion.small_description}}">
+<link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.4.x/dist/typography.min.css" />
+{% endblock %}
+
+{% block body %}
+<div class="mx-auto">
+    <div class="flex">
+        <div class="w-full mt-10 bg-white px-4">
+            <section class="text-gray-600 body-font">
+                <div class="lg:px-24 px-5 py-8 md:flex-row flex-col items-center">
+                    <div class="text-center">
+                        <h1 class="font-sans text-3xl font-bold tracking-tight text-rose-500 sm:text-4xl">
+                            <span>{{group_discussion.title}}</span>
+                        </h1>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-gray-600 body-font">
+                <div class="sm:prose lg:prose-2xl xl:prose-2xl mx-auto">
+                    <p class="mb-5 text-center">{{group_discussion.description|safe}}</p>
+                </div>
+            </section>
+
+            <div class="flex justify-center">
+                <a href="{% url 'payments:enroll_in_groupdiscussion' group_discussion.slug %}">
+                    <button class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Enroll Now
+                    </button>
+                </a>
+            </div>            
+        </div>
+    </div>
+</div>
+{% endblock %}
+        
+

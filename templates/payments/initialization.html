@@ -1,0 +1,127 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+<title>Enroll in {{group_discussion.title}}</title>
+{% endblock %}
+
+{% block body %}
+<div class="mx-auto">
+    <div class="flex justify-center mt-5">
+        <div class="w-9/12">
+            <h2 class="text-center max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+                <span class="relative inline-block">
+                    <span class="relative text-rose-500">Payment</span>
+                </span>
+                Page
+            </h2>
+            <hr class="my-2" />
+            <p class="text-base font-bold text-gray-700 md:text-lg text-center mb-5">
+                Total Billing Amount: INR {{amount}}
+            </p>
+            <div class="text-center my-1">
+                <input type="checkbox" id="check-terms" />
+                I accept the
+                <a href="/terms-and-conditions/" target="__blank" class="text-blue-500">Terms</a>
+                and
+                <a href="/refund-policy/" target="__blank" class="text-blue-500">Refund policy</a>.
+                <div id="unchecked-msg" class="text-rose-500 font-semibold"></div>
+            </div>
+
+            <div class="text-center max-w-lg mb-6 font-sans font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+                <div>
+                    <button onclick="coupon_code_toggler()" type="button"
+                        class="justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                        id="menu-button" aria-expanded="true" aria-haspopup="true">
+                        Apply Coupon Code
+                    </button>
+                </div>
+
+                <div id="coupon-code-box"
+                    class="z-20 hidden origin-top-right mx-16 my-2 p-4 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="relative">
+                        <input type="text" id="coupon-code" name="code"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                    <div id="empty-code"></div>
+                    <button
+                        class="justify-center rounded-md w-full border border-gray-300 shadow-sm px-4 py-2 bg-yellow-500 text-white text-sm font-medium text-gray-700 hover:bg-gray-800"
+                        onclick="submit_coupon_code()">
+                        Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if response %}
+<div class="container mx-auto">
+  <div class="flex justify-center">
+      <form action="/payments/gd/success/{{group_discussion.slug}}/" method="POST" class="max-w-md mx-auto">
+        <script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          data-key="{{razorpay_client_key}}"
+          data-amount="{{response.amount}}"
+          data-currency="{{response.currency}}"
+          data-order_id="{{response.id}}"
+          data-buttontext="Pay Now"
+          data-name="Swabhyaas.com"
+          data-prefill.name="{{request.user.username}}"
+          data-prefill.email="{{request.user.email}}"
+          data-prefill.contact="00"
+          data-theme.color="#F43F5E"
+        ></script>
+        <input type="hidden" custom="Hidden Element" name="hidden" />
+      </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    payment_button = document.getElementsByClassName("razorpay-payment-button")[0];
+    payment_button.className = "razorpay-payment-button w-full h-12 px-16 my-4 font-medium tracking-wide text-white transition duration-200 bg-rose-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none mx-auto block";
+
+    var checker = document.getElementById("check-terms");
+    checker.onchange = function () {
+      if (checker.checked) {
+        payment_button.disabled = false;
+        document.getElementById("unchecked-msg").innerHTML = "";
+      } else {
+        payment_button.disabled = true;
+      }
+    };
+  
+    payment_button.onclick = function () {
+      if (!checker.checked) {
+        document.getElementById("unchecked-msg").innerHTML =
+        '<p class="text-danger">Please accept the terms and conditions.</p>';
+      }
+      if (checker.checked) {
+        payment_button.disabled = false;
+      } else {
+        payment_button.disabled = true;
+      }
+    };
+  </script>
+  
+  <script>
+      function coupon_code_toggler(){
+        const menu = document.getElementById('coupon-code-box');
+        menu.classList.toggle("hidden");
+      }
+  
+      function submit_coupon_code(){
+          coupon_code = document.getElementById("coupon-code").value.trim();
+          if(coupon_code == ""){
+              document.getElementById("empty-code").innerHTML =
+              '<p class="text-danger text-sm font-normal">Please enter a coupon code.</p>';
+          }
+          else{
+              window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname +"?code="+coupon_code;
+          }
+      }
+  </script>  
+{% endblock scripts %}
