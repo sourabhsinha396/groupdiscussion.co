@@ -4,7 +4,7 @@ from colorama import Fore, Style
 DEBUG = False
 print(Fore.CYAN + "DEBUG is " + Fore.GREEN + str(DEBUG) + Style.RESET_ALL)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['swabhyaas.com','www.swabhyaas.com',]
 
 INSTALLED_APPS += ["anymail","storages",]
 
@@ -63,3 +63,6 @@ ROLLBAR = {
     "root": BASE_DIR,
     "patch_debugview": False,
 }
+
+if os.getenv("FORCED_HTTPS"):
+    SECURE_SSL_REDIRECT = True
