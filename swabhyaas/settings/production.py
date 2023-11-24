@@ -5,6 +5,7 @@ DEBUG = False
 print(Fore.CYAN + "DEBUG is " + Fore.GREEN + str(DEBUG) + Style.RESET_ALL)
 
 ALLOWED_HOSTS = ['swabhyaas.com','www.swabhyaas.com','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://swabhyaas.com', 'http://127.0.0.1']
 
 INSTALLED_APPS += ["anymail","storages",]
 
