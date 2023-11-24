@@ -2,6 +2,7 @@
 db.sqlite3
 media
 staticroot
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
