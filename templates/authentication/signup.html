@@ -58,7 +58,7 @@
             </div>
   
             <div class="text-sm leading-6">
-              <a href="#" class="font-semibold text-rose-600 hover:text-rose-500">Forgot password?</a>
+              <a href="{% url 'forgot_password' %}" class="font-semibold text-rose-600 hover:text-rose-500">Forgot password?</a>
             </div>
           </div>
   
@@ -95,10 +95,10 @@
         </div>
       </div>
   
-      <!-- <p class="mt-10 text-center text-sm text-gray-500">
-        Not a member?
-        <a href="#" class="font-semibold leading-6 text-rose-600 hover:text-rose-500">Start a 14 day free trial</a>
-      </p> -->
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Already a member?
+        <a href="{% url 'login' %}" class="font-semibold leading-6 text-rose-600 hover:text-rose-500">Login</a>
+      </p>
     </div>
   </div>
 {% endblock %}  
