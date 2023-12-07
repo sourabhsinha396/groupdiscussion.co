@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.contrib import messages
 
 from .forms import ContactUsForm
+from apps.analytics.utils import track_hit
 
 
 def home(request):
+    track_hit(request)
     return render(request, 'common/home.html')
 
 

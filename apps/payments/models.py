@@ -14,7 +14,6 @@ class Payment(models.Model):
     order_id = models.CharField(max_length=100)
     payment_id = models.CharField(max_length=100)
     coupon = models.ForeignKey('payments.CouponCode',on_delete=models.SET_NULL, related_name="payments", null=True, blank=True)
-    refered_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="refered_payments", null=True, blank=True)
     extra = JSONField(null=True, blank=True, default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -51,3 +50,30 @@ class CouponCode(models.Model):
     def __str__(self):
         return self.code + ' - ' + str(self.discount) + '%'
     
+
+class Referral(models.Model):
+    payment = models.OneToOneField('payments.Payment',on_delete=models.CASCADE, related_name="referral")
+    referer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="referrals")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural="Referrals"
+    
+    def __str__(self):
+        return self.referer.email + " - " + self.payment.payee.email + " - " + self.payment.group_discussion.title
+
+
+class Credit(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="credits")
+    payment = models.OneToOneField('payments.Payment',on_delete=models.SET_NULL, related_name="credits", blank=True, null=True)
+    amount = models.IntegerField()
+    reason = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural="Credits"
+    
+    def __str__(self):
+        return self.user.email + " - " + self.reason

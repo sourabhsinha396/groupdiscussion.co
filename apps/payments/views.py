@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from .utils import get_discounted_amount
+from .utils import set_referer, add_referral_credits
 from .models import PaymentAttempt, Payment
 from apps.groupdiscussions.models import GroupDiscussion
 
@@ -26,7 +27,7 @@ def track_payment_attempt(user, group_discussion, message="attempted"):
         payment_attempt.save()
     else:
         PaymentAttempt.objects.create(user=user,group_discussion=group_discussion,message=message)
-    
+
 
 @login_required
 def enroll_in_groupdiscussion(request, slug):
@@ -62,16 +63,20 @@ def payments_for_group_discussion(request, slug):
         user_email = razorpay_payment['notes'].get('user_email', None)
         payee = User.objects.get(email=user_email)
         coupon_code = razorpay_payment['notes'].get('coupon_code', None)
-        referer = razorpay_payment['notes'].get('referer', None)
         
         status = "paid" if razorpay_payment['status'] == 'captured' else "failed"
         payment = Payment.objects.create(mentor=group_discussion.mentor,payee=payee,group_discussion=group_discussion,
                                          amount=razorpay_payment['amount'],currency=razorpay_payment['currency'],
                                          status=status,order_id=razorpay_payment['order_id'],
                                          payment_id=razorpay_payment['id'],
-                                         coupon=coupon_code,refered_by=referer,
+                                         coupon=coupon_code,
                                          extra=razorpay_payment)
         track_payment_attempt(user=payee,group_discussion=group_discussion,message=status)
+
+        referer = razorpay_payment['notes'].get('referer', None)
+        set_referer(referer=referer, payment=payment)
+        add_referral_credits(referer=referer, payment=payment)
+
         context = {'payment':payment}
         return render(request, 'payments/payment_status.html', context=context)
 

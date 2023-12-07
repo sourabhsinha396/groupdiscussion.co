@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "apps.groupdiscussions",
     "apps.payments",
     "apps.authentication",
+    "apps.analytics",
 
     # third party
     'django_recaptcha',
