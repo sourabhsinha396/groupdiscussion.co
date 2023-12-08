@@ -1,5 +1,6 @@
 from .models import Hit
 
+
 def track_hit(request):
     """Track hits on the website"""
     utm_source = request.GET.get('utm_source', None)
@@ -11,10 +12,7 @@ def track_hit(request):
         request.session['referer'] = referer
 
     hits = Hit.objects.filter(
-        utm_source=utm_source,
-        utm_medium=utm_medium,
-        referer_site=referer_site,
-        ip_address=client_ip,
+        ip_address=client_ip
     )
     if hits.exists():
         return hits.first()
