@@ -23,8 +23,8 @@ class GroupDiscussion(models.Model):
 
     class Meta:
         ordering = ('start_datetime',)
-        verbose_name = 'Group Discussion'
-        verbose_name_plural = 'Group Discussions'
+        verbose_name = 'Interview'
+        verbose_name_plural = 'Interviews'
 
     def __str__(self):
         return self.title

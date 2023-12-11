@@ -2,6 +2,7 @@ import razorpay
 
 from django.utils import timezone
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -89,4 +90,4 @@ def dashboard(request):
 
 
 def pricing(request):
-    return render(request, 'payments/pricing.html', context={})
+    return redirect('groupdiscussions:list_group_discussions')

@@ -26,3 +26,14 @@ def group_discussion_detail(request, slug):
     track_hit(request)
     group_discussion = GroupDiscussion.objects.get(slug=slug)
     return render(request, 'groupdiscussions/gd_detail.html', {'group_discussion': group_discussion})
+
+
+def search_interviews(request):
+    track_hit(request)
+    query = request.POST.get('interview_search', None)
+    group_discussions = []
+    if query:
+        group_discussions = GroupDiscussion.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+    return render(request, 'groupdiscussions/gd_list.html', {'group_discussions': group_discussions})
