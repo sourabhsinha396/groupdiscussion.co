@@ -6,6 +6,7 @@ from datetime import datetime
 
 from .models import GroupDiscussion
 from apps.analytics.utils import track_hit
+from apps.analytics.models import Searches
 
 
 def list_group_discussions(request):
@@ -37,4 +38,9 @@ def search_interviews(request):
         group_discussions = GroupDiscussion.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
+    Searches.objects.create(
+        user=request.user,
+        query=query,
+        length_results=len(group_discussions)
+    )
     return render(request, 'groupdiscussions/gd_list.html', {'group_discussions': group_discussions})
