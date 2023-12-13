@@ -30,7 +30,8 @@ def group_discussion_detail(request, slug):
 
 def search_interviews(request):
     track_hit(request)
-    query = request.POST.get('interview_search', None)
+    query = request.GET.get('interview', None)
+    print("query is ",query)
     group_discussions = []
     if query:
         group_discussions = GroupDiscussion.objects.filter(
