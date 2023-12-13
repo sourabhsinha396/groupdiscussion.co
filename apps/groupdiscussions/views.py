@@ -39,7 +39,7 @@ def search_interviews(request):
             Q(title__icontains=query) | Q(description__icontains=query)
         )
     Searches.objects.create(
-        user=request.user,
+        user=request.user if request.user.is_authenticated else None,
         query=query,
         length_results=len(group_discussions)
     )
