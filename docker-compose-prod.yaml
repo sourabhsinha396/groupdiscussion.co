@@ -9,14 +9,14 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      - src_postgres
       - redis
     networks:
       - common
     env_file:
       - .env
 
-  postgres:
+  src_postgres:
     image: postgres:latest
     environment:
       POSTGRES_DB: ${DB_NAME}
@@ -24,9 +24,13 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - common
 
   redis:
     image: "redis:alpine"
+    networks:
+      - common
 
   nginx:
     image: nginx:latest
