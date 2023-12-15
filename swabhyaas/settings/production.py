@@ -4,8 +4,19 @@ from colorama import Fore, Style
 DEBUG = False
 print(Fore.CYAN + "DEBUG is " + Fore.GREEN + str(DEBUG) + Style.RESET_ALL)
 
-ALLOWED_HOSTS = ['mockinterview.in','www.mockinterview.in','127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://mockinterview.in', 'https://www.mockinterview.in', 'http://127.0.0.1']
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': '5432',
+    }
+}
+
+ALLOWED_HOSTS = ['groupdiscussion.co','www.groupdiscussion.co','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://groupdiscussion.co', 'https://www.groupdiscussion.co', 'http://127.0.0.1']
 
 INSTALLED_APPS += ["anymail","storages",]
 
