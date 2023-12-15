@@ -11,6 +11,8 @@ services:
     depends_on:
       - postgres
       - redis
+    networks:
+      - common
     env_file:
       - .env
 
@@ -51,11 +53,9 @@ services:
       - ../nginx/certbot/www/:/var/www/certbot/:rw
       - ../nginx/certbot/conf/:/etc/letsencrypt/:rw
 
-
 networks:
   common:
     external: true
-
 
 volumes:
   postgres_data:
