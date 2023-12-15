@@ -23,9 +23,11 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - src_postgres_data:/var/lib/postgresql/data
     networks:
       - common
+    ports:
+      - "5433:5432"
 
   redis:
     image: "redis:alpine"
