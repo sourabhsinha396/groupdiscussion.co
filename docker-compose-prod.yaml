@@ -54,7 +54,7 @@ services:
   certbot:
     image: certbot/certbot:latest
     # command: renew
-#    command: certonly --webroot --webroot-path=/var/www/certbot --force-renewal --email sourabhsinha396@gmail.com --agree-tos --no-eff-email -d groupdiscussion.co
+    command: certonly --webroot --webroot-path=/var/www/certbot --force-renewal --email sourabhsinha396@gmail.com --agree-tos --no-eff-email -d groupdiscussion.co
     volumes:
       - ../nginx/certbot/www/:/var/www/certbot/:rw
       - ../nginx/certbot/conf/:/etc/letsencrypt/:rw
