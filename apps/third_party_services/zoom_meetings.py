@@ -45,8 +45,9 @@ def create_zoom_meeting(topic: str, start_time: str, duration: int, service_slug
     payload = json.dumps({
     "topic": f"{topic}",
     "type": 2,
-    "start_time": f"{start_time}",
+    "start_time": start_time.strftime('%Y-%m-%dT%H:%M:%S'),
     "duration": duration,
+    'timezone': 'Asia/Kolkata',
     "settings": {
         "join_before_host": True,
         "jbh_time":5,

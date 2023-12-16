@@ -53,7 +53,7 @@ class GroupDiscussion(models.Model):
                 requests.post("https://ntfy.sh/fastapi", data=f"Near Max Enrollment for Group Discussion {self.id}  {self.title}.".encode(encoding='utf-8'))
 
         if not self.meeting_id:
-            meeting = create_zoom_meeting(self.title, self.start_datetime.time(), 60, self.slug)
+            meeting = create_zoom_meeting(self.title, self.start_datetime, 60, self.slug)
             self.meeting_id = meeting['meeting_id']
             self.meeting_url = meeting['meeting_url']
             self.meeting_password = meeting['meeting_password']
