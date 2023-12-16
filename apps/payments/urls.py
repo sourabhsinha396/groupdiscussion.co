@@ -8,4 +8,5 @@ urlpatterns = [
     path('payments/gd/success/<slug:slug>/', views.payments_for_group_discussion, name='payment_for_group_discussion'),
     path("payments/dashboard/", views.dashboard, name="dashboard"),
     path("payments/pricing/", views.pricing, name="pricing"),
+    path("payments/free-booking/<slug:slug>/", views.book_free_service, name="free_booking"),
 ]

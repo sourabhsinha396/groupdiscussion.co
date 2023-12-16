@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 
+from apps.third_party_services.zoom_meetings import create_zoom_meeting
+
 
 class GroupDiscussion(models.Model):
     mentor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='group_discussions')
@@ -18,13 +20,16 @@ class GroupDiscussion(models.Model):
     is_active = models.BooleanField(default=True)
     is_free = models.BooleanField(default=False)
     is_private = models.BooleanField(default=False)
+    meeting_id = models.CharField(max_length=100, blank=True, null=True)
+    meeting_url = models.CharField(max_length=100, blank=True, null=True)
+    meeting_password = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('start_datetime',)
-        verbose_name = 'Interview'
-        verbose_name_plural = 'Interviews'
+        verbose_name = 'Group Discussion'
+        verbose_name_plural = 'Group Discussions'
 
     def __str__(self):
         return self.title
@@ -44,7 +49,13 @@ class GroupDiscussion(models.Model):
             raise ValueError('Price is not required for free group discussions')
         
         if self.id and self.max_students:
-            if self.enrolled_students.count() >= self.max_students - 2:
+            if self.enrolled_students.count() >= self.max_students - 1:
                 requests.post("https://ntfy.sh/fastapi", data=f"Near Max Enrollment for Group Discussion {self.id}  {self.title}.".encode(encoding='utf-8'))
+
+        if not self.meeting_id:
+            meeting = create_zoom_meeting(self.title, self.start_datetime.time(), 60, self.slug)
+            self.meeting_id = meeting['meeting_id']
+            self.meeting_url = meeting['meeting_url']
+            self.meeting_password = meeting['meeting_password']
         super().save(*args, **kwargs)
 

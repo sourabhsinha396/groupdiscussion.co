@@ -27,7 +27,7 @@
                   <td class="py-4 px-3 text-sm text-gray-500">{% widthratio payment.amount 100 1 %}</td>
                   <td class="py-4 px-3 text-sm text-gray-500">{{ payment.status }}</td>
                   <td class="py-4 px-3 text-sm text-gray-500">{{ payment.created_at }}</td>
-                  <td class="py-4 px-3 text-sm text-gray-500"><a href="/" class="text-white bg-rose-500 rounded py-2 px-4">Join Meeting</a></td>
+                  <td class="py-4 px-3 text-sm text-gray-500"><a href="{{payment.group_discussion.meeting_url}}" target="_blank" class="text-white bg-rose-500 rounded py-2 px-4">Join Meeting</a></td>
                 </tr>
                 {% empty %}
                 <tr>

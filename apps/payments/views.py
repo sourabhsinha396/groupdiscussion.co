@@ -1,3 +1,4 @@
+import requests
 import razorpay
 
 from django.utils import timezone
@@ -33,6 +34,8 @@ def track_payment_attempt(user, group_discussion, message="attempted"):
 @login_required
 def enroll_in_groupdiscussion(request, slug):
     group_discussion = GroupDiscussion.objects.get(slug=slug)
+    if group_discussion.is_free:
+        return redirect('payments:free_booking', slug=slug)
     
     coupon_code = request.GET.get("code")
     amount = get_discounted_amount(price=group_discussion.price,code=coupon_code,request=request)
@@ -77,7 +80,7 @@ def payments_for_group_discussion(request, slug):
         referer = razorpay_payment['notes'].get('referer', None)
         set_referer(referer=referer, payment=payment)
         add_referral_credits(referer=referer, payment=payment)
-
+        requests.post("https://ntfy.sh/fastapi", data=f"New Booking for GroupDiscussion.Co {user_email}.".encode(encoding='utf-8'))
         context = {'payment':payment}
         return render(request, 'payments/payment_status.html', context=context)
 
@@ -91,3 +94,14 @@ def dashboard(request):
 
 def pricing(request):
     return redirect('groupdiscussions:list_group_discussions')
+
+
+@login_required
+def book_free_service(request, slug: str):
+    group_discussion = GroupDiscussion.objects.get(slug=slug)
+    payment = Payment.objects.create(mentor=group_discussion.mentor,payee=request.user,group_discussion=group_discussion,
+                                     amount=0,currency='INR',status="paid",order_id="free",
+                                     payment_id="free",coupon=None,extra={})
+    requests.post("https://ntfy.sh/fastapi", data=f"New Free Booking for GroupDiscussion.Co {request.user.email}.".encode(encoding='utf-8'))
+    context = {'payment':payment}
+    return render(request, 'payments/payment_status.html', context=context)

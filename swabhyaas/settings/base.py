@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "apps.payments",
     "apps.authentication",
     "apps.analytics",
+    "apps.third_party_services",
 
     # third party
     'django_recaptcha',
@@ -197,3 +198,15 @@ CKEDITOR_CONFIGS = {
         "image2_prefillDimensions": False,  # Ensures 'Upload' tab is focused by default.
     },
 }
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
+# Zoom
+ZOOM_ACCOUNT_ID = os.getenv("ZOOM_ACCOUNT_ID")
+ZOOM_CLIENT_ID = os.getenv("ZOOM_CLIENT_ID")
+ZOOM_CLIENT_SECRET = os.getenv("ZOOM_CLIENT_SECRET")

@@ -9,7 +9,7 @@ class GroupDiscussionModelAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
     fieldsets = (
         (None, {
-            'fields': ('mentor', 'title', 'slug', 'small_description', 'description', 'start_datetime', 'max_students', 'enrolled_students', 'price', 'is_active', 'is_free', 'is_private')
+            'fields': ('mentor', 'title', 'slug', 'small_description', 'description', 'start_datetime', 'max_students', 'enrolled_students', 'price', 'is_active', 'is_free', 'is_private', 'meeting_id', 'meeting_url', 'meeting_password')
         }),
         ('System Info', {
             'fields': ('created_at', 'updated_at')
