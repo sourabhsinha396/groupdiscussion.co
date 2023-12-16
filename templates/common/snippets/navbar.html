@@ -10,8 +10,8 @@
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                       <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
                       <a href="/" class="inline-flex items-center border-b-2 border-rose-500 px-1 py-2 text-sm font-semibold text-gray-900">Home</a>
-                      <a href="{% url 'blogs:blog_list' %}" class="inline-flex items-center border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 hover:text-gray-700">Interview Topics</a>
-                      <a href="{% url 'groupdiscussions:list_group_discussions' %}" class="inline-flex items-center border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 hover:text-gray-700">Schedule Interview</a>
+                      <a href="{% url 'blogs:blog_list' %}" class="inline-flex items-center border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 hover:text-gray-700">GD Topics</a>
+                      <a href="{% url 'groupdiscussions:list_group_discussions' %}" class="inline-flex items-center border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 hover:text-gray-700">Schedule GD</a>
                       <a href="/payments/dashboard/" class="inline-flex items-center border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 hover:text-gray-700">Dashboard</a>
                     </div>
                   </div>
@@ -70,7 +70,7 @@
                         Swabhyaas
                     </div>
                     <div class="grid grid-cols-3 gap-4 p-4">
-                    <a href="https://swabhyaas.com/?utm_source=mockinterview&utm_medium=hero&referer=sourabh" target="_blank" class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                    <a href="https://swabhyaas.com/?utm_source=groupdiscussion&utm_medium=hero&referer=sourabh" target="_blank" class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                         <svg class="mx-auto mb-2 w-5 h-5 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19"><path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/><path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/></svg>
                         <div class="text-sm font-medium text-gray-900 dark:text-white">Book GD</div>
                     </a>
@@ -122,10 +122,10 @@
                     {% endif %}
                     <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                         <li>
-                            <a href="{% url 'blogs:blog_list' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Interview Topics</a>
+                            <a href="{% url 'blogs:blog_list' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">GD Topics</a>
                         </li>
                         <li>
-                            <a href="{% url 'groupdiscussions:list_group_discussions' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Mock Interviews</a>
+                            <a href="{% url 'groupdiscussions:list_group_discussions' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Schedule GD Online</a>
                         </li>
                         <li>
                             <a href="{% url 'payments:dashboard' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Dashboard</a>
