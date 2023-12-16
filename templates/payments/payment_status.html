@@ -1,68 +1,145 @@
-{% extends "layouts/base.html" %}
-
-{% block body %}
+{% extends "layouts/base.html" %} {% block body %}
 <div class="container py-10 px-36 items-center">
-    <h2 class="max-w-full mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl">
-      <span class="relative inline-block">
-        <span class="relative text-rose-500">Payment Details</span>
-      </span>
-    </h2>
-<p class="text-base text-gray-700 md:text-lg">This is the information for your payment.</p>
-<p class="text-base text-gray-700 md:text-lg">Order ID: {{payment.order_id}}</p>
-<p class="text-base text-gray-700 md:text-lg">Payment ID: {{payment.payment_id}}</p>
-<p class="text-base text-gray-700 md:text-lg">Amount: {% widthratio payment.amount 100 1 %} {{payment.currency}}</p>
-<p class="text-base text-gray-700 md:text-lg">Date of Payment: {{payment.updated_at}}</p>
-<a href="{% url 'payments:dashboard' %}"><button class="text-base font-bold text-white md:text-lg bg-rose-500 rounded py-2 px-4">Visit Dashboard</button></a>
+  <h2
+    class="max-w-full mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl"
+  >
+    <span class="relative inline-block">
+      <span class="relative text-rose-500">Payment Details</span>
+    </span>
+  </h2>
+  <p class="text-base text-gray-700 md:text-lg">
+    This is the information for your payment.
+  </p>
+  <p class="text-base text-gray-700 md:text-lg">
+    Order ID: {{payment.order_id}}
+  </p>
+  <p class="text-base text-gray-700 md:text-lg">
+    Payment ID: {{payment.payment_id}}
+  </p>
+  <p class="text-base text-gray-700 md:text-lg">
+    Amount: {% widthratio payment.amount 100 1 %} {{payment.currency}}
+  </p>
+  <p class="text-base text-gray-700 md:text-lg">
+    Date of Payment: {{payment.updated_at}}
+  </p>
+  <a href="{% url 'payments:dashboard' %}"
+    ><button
+      class="text-base font-bold text-white md:text-lg bg-rose-500 rounded py-2 px-4"
+    >
+      Visit Dashboard
+    </button></a
+  >
 
+  <h2
+    class="mt-5 max-w-full mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl"
+  >
+    <span class="relative inline-block">
+      <span class="relative text-rose-500"
+        >Most frequently asked questions</span
+      >
+    </span>
+  </h2>
 
-    <h2 class="mt-5 max-w-full mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl">
-      <span class="relative inline-block">
-        <span class="relative text-rose-500">Most frequently asked questions</span>
-      </span>
-    </h2>
-
-    <div class="border rounded shadow-sm">
-      <button type="button" aria-label="Open item" title="Open item" class="toggle-card w-full p-4 focus:outline-none">
-        <p class="text-lg font-medium text-rose-500">I have booked 1/3 Month subscription, How to get the schedule for meeting?<i class="fas fa-chevron-down ml-3"></i></p>
-      </button>
-      <div class="p-4 pt-0 hidden"><p class="text-gray-700">Our team will contact you at your registered email and discuss the schedule. You can also contact us at <a href="mailto:support@mockinterview.in" class="text-gray-600 transition-colors duration-300 hover:text-rose-500 pt-2">support@mockinterview.in</a> to get a list of meeting schedule.</p></div>
+  <div class="border rounded shadow-sm">
+    <button
+      type="button"
+      aria-label="Open item"
+      title="Open item"
+      class="toggle-card w-full p-4 focus:outline-none"
+    >
+      <p class="text-lg font-medium text-rose-500">
+        I have booked 1/3 Month subscription, How to get the schedule for
+        meeting?<i class="fas fa-chevron-down ml-3"></i>
+      </p>
+    </button>
+    <div class="p-4 pt-0 hidden">
+      <p class="text-gray-700">
+        Our team will contact you at your registered email and discuss the
+        schedule. You can also contact us at
+        <a
+          href="mailto:support@groupdiscussion.co"
+          class="text-gray-600 transition-colors duration-300 hover:text-rose-500 pt-2"
+          >support@groupdiscussion.co</a
+        >
+        to get a list of meeting schedule.
+      </p>
     </div>
+  </div>
 
-      <div class="border rounded shadow-sm">
-        <button type="button" aria-label="Open item" title="Open item" class="toggle-card w-full p-4 focus:outline-none">
-          <p class="text-lg font-medium text-rose-500">What if I miss the GD schedule?<i class="fas fa-chevron-down ml-3"></i></p>
-        </button>
-        <div class="p-4 pt-0 hidden"><p class="text-gray-700">We share your details with our moderators and freeze their slot. So, we can't reschedule the same.</p></div>
-      </div>
+  <div class="border rounded shadow-sm">
+    <button
+      type="button"
+      aria-label="Open item"
+      title="Open item"
+      class="toggle-card w-full p-4 focus:outline-none"
+    >
+      <p class="text-lg font-medium text-rose-500">
+        What if I miss the GD schedule?<i class="fas fa-chevron-down ml-3"></i>
+      </p>
+    </button>
+    <div class="p-4 pt-0 hidden">
+      <p class="text-gray-700">
+        We share your details with our moderators and freeze their slot. So, we
+        can't reschedule the same.
+      </p>
+    </div>
+  </div>
 
-      <div class="border rounded shadow-sm">
-        <button type="button" aria-label="Open item" title="Open item" class="toggle-card w-full p-4 focus:outline-none">
-          <p class="text-lg font-medium text-rose-500">How many participants will be in the GD?<i class="fas fa-chevron-down ml-3"></i></p>
-        </button>
-        <div class="p-4 pt-0 hidden"><p class="text-gray-700">We put a cap of maximum 6-8 students. This helps us give sufficient review time and minimize the waiting time for review.</p></div>
-      </div>
+  <div class="border rounded shadow-sm">
+    <button
+      type="button"
+      aria-label="Open item"
+      title="Open item"
+      class="toggle-card w-full p-4 focus:outline-none"
+    >
+      <p class="text-lg font-medium text-rose-500">
+        How many participants will be in the GD?<i
+          class="fas fa-chevron-down ml-3"
+        ></i>
+      </p>
+    </button>
+    <div class="p-4 pt-0 hidden">
+      <p class="text-gray-700">
+        We put a cap of maximum 6-8 students. This helps us give sufficient
+        review time and minimize the waiting time for review.
+      </p>
+    </div>
+  </div>
 
-      <div class="border rounded shadow-sm">
-        <button type="button" aria-label="Open item" title="Open item" class="toggle-card w-full p-4 focus:outline-none">
-          <p class="text-lg font-medium text-rose-500">What will be the topic for the GD?<i class="fas fa-chevron-down ml-3"></i></p>
-        </button>
-        <div class="p-4 pt-0 hidden"><p class="text-gray-700">We expose the topic only at the time of GD. This helps push your boundaries and forces the think instantly.</p></div>
-      </div>
+  <div class="border rounded shadow-sm">
+    <button
+      type="button"
+      aria-label="Open item"
+      title="Open item"
+      class="toggle-card w-full p-4 focus:outline-none"
+    >
+      <p class="text-lg font-medium text-rose-500">
+        What will be the topic for the GD?<i
+          class="fas fa-chevron-down ml-3"
+        ></i>
+      </p>
+    </button>
+    <div class="p-4 pt-0 hidden">
+      <p class="text-gray-700">
+        We expose the topic only at the time of GD. This helps push your
+        boundaries and forces the think instantly.
+      </p>
+    </div>
+  </div>
 
-      <p class="text-sm text-rose-500 mt-2">For more FAQs visit : <a href="/faqs/" class="text-indigo-500">FAQ page</a></p>
-
+  <p class="text-sm text-rose-500 mt-2">
+    For more FAQs visit : <a href="/faqs/" class="text-indigo-500">FAQ page</a>
+  </p>
 </div>
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script>
-    const toggleButtons = document.querySelectorAll('.toggle-card');
-  
-    toggleButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        const content = button.nextElementSibling;
-        content.classList.toggle('hidden');
-      });
+  const toggleButtons = document.querySelectorAll(".toggle-card");
+
+  toggleButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const content = button.nextElementSibling;
+      content.classList.toggle("hidden");
     });
+  });
 </script>
 {% endblock %}

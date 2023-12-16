@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'swabhyaas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'prod.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
