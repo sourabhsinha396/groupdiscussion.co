@@ -20,7 +20,6 @@ def list_group_discussions(request):
     .exclude(enrolled_students_count__gte=F('max_students'))
     .exclude(start_datetime__date__lt=datetime.now().date())
     ).order_by('tree_id')
-    #order by tree field
     return render(request, 'groupdiscussions/gd_list.html', {'group_discussions': group_discussions})
 
 
@@ -30,13 +29,13 @@ def group_discussion_detail(request, slug):
     return render(request, 'groupdiscussions/gd_detail.html', {'group_discussion': group_discussion})
 
 
-def search_interviews(request):
+def search_groupdiscussion(request):
     track_hit(request)
-    query = request.GET.get('interview', None)
+    query = request.GET.get('gd', None)
     group_discussions = []
     if query:
         group_discussions = GroupDiscussion.objects.filter(
-            Q(title__icontains=query) | Q(short_description__icontains=query),
+            Q(title__icontains=query) | Q(small_description__icontains=query),
             is_active=True,
             start_datetime__date__gte=datetime.now().date()
         )
