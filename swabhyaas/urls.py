@@ -19,6 +19,8 @@ urlpatterns = [
     path("", include("apps.groupdiscussions.urls")),
     path("", include("apps.payments.urls")),
     path("", include("apps.authentication.urls")),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.socialaccount.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
 ]
