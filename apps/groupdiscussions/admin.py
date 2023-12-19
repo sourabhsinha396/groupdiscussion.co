@@ -1,22 +1,15 @@
 from django.contrib import admin
 from .models import GroupDiscussion
+from mptt.admin import DraggableMPTTAdmin
 
-
-class GroupDiscussionModelAdmin(admin.ModelAdmin):
-    list_display = ('title', 'mentor', 'start_datetime', 'is_active', 'is_free', 'is_private', 'created_at', 'updated_at')
-    list_filter = ('mentor', 'is_active', 'is_free', 'is_private', 'created_at', 'updated_at')
-    search_fields = ('title', 'mentor__username', 'mentor__email', 'mentor__first_name', 'mentor__last_name', 'start_datetime', 'created_at', 'updated_at')
-    readonly_fields = ('created_at', 'updated_at')
-    fieldsets = (
-        (None, {
-            'fields': ('mentor', 'title', 'slug', 'small_description', 'description', 'start_datetime', 'max_students', 'enrolled_students', 'price', 'is_active', 'is_free', 'is_private', 'meeting_id', 'meeting_url', 'meeting_password')
-        }),
-        ('System Info', {
-            'fields': ('created_at', 'updated_at')
-        }),
+class GroupDiscussionAdmin(DraggableMPTTAdmin):
+    list_display = (
+        'tree_actions',
+        'indented_title',
+        # ...more fields if you feel like it...
     )
-    prepopulated_fields = {'slug': ('title',)}
-    ordering = ('start_datetime',)
+    list_display_links = (
+        'indented_title',
+    )
 
-
-admin.site.register(GroupDiscussion, GroupDiscussionModelAdmin)
+admin.site.register(GroupDiscussion, GroupDiscussionAdmin)

@@ -32,11 +32,12 @@ def group_discussion_detail(request, slug):
 def search_interviews(request):
     track_hit(request)
     query = request.GET.get('interview', None)
-    print("query is ",query)
     group_discussions = []
     if query:
         group_discussions = GroupDiscussion.objects.filter(
-            Q(title__icontains=query) | Q(description__icontains=query)
+            Q(title__icontains=query) | Q(short_description__icontains=query),
+            is_active=True,
+            start_datetime__date__gte=datetime.now().date()
         )
     Searches.objects.create(
         user=request.user if request.user.is_authenticated else None,

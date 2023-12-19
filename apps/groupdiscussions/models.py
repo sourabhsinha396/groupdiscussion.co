@@ -1,5 +1,7 @@
 import requests
 from ckeditor_uploader.fields import RichTextUploadingField
+from mptt.models import MPTTModel, TreeForeignKey
+
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
@@ -7,7 +9,7 @@ from django.conf import settings
 from apps.third_party_services.zoom_meetings import create_zoom_meeting
 
 
-class GroupDiscussion(models.Model):
+class GroupDiscussion(MPTTModel):
     mentor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='group_discussions')
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
@@ -25,6 +27,7 @@ class GroupDiscussion(models.Model):
     meeting_password = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    parent = TreeForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='children')
 
     class Meta:
         ordering = ('start_datetime',)
