@@ -19,6 +19,7 @@ def list_group_discussions(request):
     .annotate(enrolled_students_count=Count('enrolled_students'))
     .exclude(enrolled_students_count__gte=F('max_students'))
     .exclude(start_datetime__date__lt=datetime.now().date())
+    .exclude(is_private=True)
     ).order_by('tree_id')
     return render(request, 'groupdiscussions/gd_list.html', {'group_discussions': group_discussions})
 
