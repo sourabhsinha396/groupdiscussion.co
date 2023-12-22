@@ -37,7 +37,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DEFAULT_FROM_EMAIL = "support@groupdiscussion.co"
+DEFAULT_FROM_EMAIL = "team@groupdiscussion.co"
 EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 ANYMAIL = {
 "SENDINBLUE_API_KEY": os.getenv("BREVO_SECRET_API_KEY")
