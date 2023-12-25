@@ -21,6 +21,10 @@ def get_discounted_amount(price,code,request)->int:
     return price * razorpay_conversion_factor
 
 
+def multiplier(amount, razorpay_multiplier=100):
+    return amount * razorpay_multiplier
+
+
 def set_referer(referer, payment:Payment):
     referer = referer
     if referer:
@@ -42,8 +46,22 @@ def add_referral_credits(referer, payment:Payment):
         except User.DoesNotExist:
             print("User does not exist to add referral credits")
             return None
-        commision_denominator = 4
-        credtis = Credit.objects.create(user=user,amount=get_actual_payment_amount(payment.amount)//commision_denominator,reason="Referral Credits",payment=payment)
-        return credtis
+        commision_denominator = 3
+        if user.credits.exists():
+            credit = user.credits.first()
+            credit.amount += get_actual_payment_amount(payment.amount)//commision_denominator
+            credit.payment = payment
+            credit.save()
+            return credit
+        
+        credits = Credit.objects.create(user=user,amount=get_actual_payment_amount(payment.amount)//commision_denominator,reason="Referral Credits",payment=payment)
+        return credits
     return None
         
+
+def deduct_referral_credits(user, amount):
+    credit = Credit.objects.filter(user=user).first()
+    if credit:
+        credit.amount -= amount
+        credit.save()
+        return credit

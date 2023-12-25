@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load referral_filter %}
 
 {% block title %}
 <title>Enroll in {{group_discussion.title}}</title>
@@ -6,8 +7,9 @@
 
 {% block body %}
 <div class="mx-auto">
-    <div class="flex justify-center mt-5">
-        <div class="w-9/12">
+    <div class="flex flex-col md:flex-row">
+
+        <div class="w-full md:w-3/4 mt-10 bg-white px-4">
             <h2 class="text-center max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
                 <span class="relative inline-block">
                     <span class="relative text-rose-500">Payment</span>
@@ -51,35 +53,55 @@
                     </button>
                 </div>
             </div>
+
+            {% if response %}
+            <div class="container mx-auto">
+              <div class="flex justify-center">
+                  <form action="/payments/gd/success/{{group_discussion.slug}}/" method="POST" class="max-w-md mx-auto">
+                    <script
+                      src="https://checkout.razorpay.com/v1/checkout.js"
+                      data-key="{{razorpay_client_key}}"
+                      data-amount="{{response.amount}}"
+                      data-currency="{{response.currency}}"
+                      data-order_id="{{response.id}}"
+                      data-buttontext="Pay Now"
+                      data-name="GroupDiscussion.Co"
+                      data-prefill.name="{{request.user.username}}"
+                      data-prefill.email="{{request.user.email}}"
+                      data-prefill.contact="00"
+                      data-theme.color="#F43F5E"
+                    ></script>
+                    <input type="hidden" custom="Hidden Element" name="hidden" />
+                  </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="w-full md:w-1/4 mt-10 bg-rose-100 rounded px-4">
+            <section class="text-gray-600 body-font">
+                <div class="lg:px-24 px-5 py-8 md:flex-row flex-col items-center">
+                    <div class="text-left">
+                        <h1 class="font-sans text-xl font-semibold tracking-tight text-rose-500 sm:text-4xl">
+                            <span>Referral Credit</span>
+                        </h1>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-gray-600 body-font">
+                <div class="sm:prose lg:prose-2xl xl:prose-2xl mx-auto">
+                    <p class="text-rose-500">You have {{request.user|user_referral_credit }} INR</p>
+                    <p class="mb-5 text-sm font-semibold text-gray-600">Share this link with your friends and earn 33% of their payments which you can use to participate in GD or Interview.</p>
+                    <a href="{{base_domain_url}}{% url 'groupdiscussions:list_group_discussions' %}?referer={{ request.user.username }}" class="mb-5 text-sm font-semibold text-rose-500">{{base_domain_url}}{% url 'groupdiscussions:list_group_discussions' %}?referer={{ request.user.username }}</a>
+                </div>
+            </section>
         </div>
     </div>
 </div>
-{% if response %}
-<div class="container mx-auto">
-  <div class="flex justify-center">
-      <form action="/payments/gd/success/{{group_discussion.slug}}/" method="POST" class="max-w-md mx-auto">
-        <script
-          src="https://checkout.razorpay.com/v1/checkout.js"
-          data-key="{{razorpay_client_key}}"
-          data-amount="{{response.amount}}"
-          data-currency="{{response.currency}}"
-          data-order_id="{{response.id}}"
-          data-buttontext="Pay Now"
-          data-name="GroupDiscussion.Co"
-          data-prefill.name="{{request.user.username}}"
-          data-prefill.email="{{request.user.email}}"
-          data-prefill.contact="00"
-          data-theme.color="#F43F5E"
-        ></script>
-        <input type="hidden" custom="Hidden Element" name="hidden" />
-      </form>
-    </div>
-</div>
-{% endif %}
 {% endblock %}
 
 {% block scripts %}
-
 <script>
     payment_button = document.getElementsByClassName("razorpay-payment-button")[0];
     payment_button.className = "razorpay-payment-button w-full h-12 px-16 my-4 font-medium tracking-wide text-white transition duration-200 bg-rose-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none mx-auto block";
