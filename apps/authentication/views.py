@@ -27,7 +27,7 @@ def signup(request):
             messages.error(request, form.errors)
     else:
         form = SignupForm()
-    context = {"form": form, "domain": settings.BASE_DOMAIN_URL}
+    context = {"form": form, "next_url": request.session.get("next")}
     return render(request, "authentication/signup.html", context=context)
 
 
@@ -49,7 +49,7 @@ def login_user(request):
             context = {"form": form, "domain": settings.BASE_DOMAIN_URL}
             return render(request, "authentication/login.html", context=context)
     form = LoginForm()
-    context = {"form": form, "domain": settings.BASE_DOMAIN_URL}
+    context = {"form": form, "next_url": request.session.get("next")}
     return render(request, "authentication/login.html", context=context)
 
 
